@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>P.A. DEWITTE - DEVFEST PARIS 2016</title>
+
+    <meta name="description" content="Reconnaissance d'ériture avec un composant Polymer">
+    <meta name="author" content="P.A. DEWITTE">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/myscript.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+
+
+        function updateText(content){
+            document.getElementsById('textSample').innerHtml(content);
+        }
+
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <!-- Integration  myscript-math-web -->
+    <script src="bower_components/pepjs/dist/pep.min.js"></script>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="bower_components/mathjs/dist/math.js"></script>
+    <link rel="import" href="bower_components/myscript-math-web/myscript-math-web.html">
+    <link rel="import" href="bower_components/myscript-text-web/myscript-text-web.html">
+
+    <style>
+        canvas[id^=ms-rendering-canvas] {
+            /* Credit http://lea.verou.me/css3patterns/#blueprint-grid
+                #269 -> white */
+            background-color:white;
+            background-image: linear-gradient(#0060A0 2px, transparent 2px),
+            linear-gradient(90deg, #0060A0 2px, transparent 2px),
+            linear-gradient(rgba(34, 102, 153,.3) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(34, 102, 153,.3) 1px, transparent 1px);
+            background-size:100px 100px, 100px 100px, 20px 20px, 20px 20px;
+            background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px
+        }
+    </style>
+</head>
+
+<body >
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide
+
+    <h1>Composant polymer de reconnaissance d'écriture</h1>
+    -->
+    <div class="slides">
+        <section>
+            <img src="img/titreimg.png">
+            <br/>
+            <br/>
+            <div class="logo-container sub">
+                <img class=logo" height="200px" width="500px" src="img/myscript.svg">
+                <img class=logo" height="200px" width="500px" src="img/logodevfest.svg">
+            </div>
+        </section>
+        <section>
+
+
+            <div>
+                <h2>Pierre-Alban DEWITTE</h2>
+                <h3>@padewitte</h3>
+            </div>
+            <br/>
+
+            <div class="logo-container sub">
+                <img src="img/Steren_France_clip_art.svg" class="logo-up ">
+                <div style="background-image:url('img/napoleonas.jpg')" class="tinted-image"></div>
+                <img src="img/Cloud01.svg" class="logo-up ">
+            </div>
+        </section>
+        <section>
+            <myscript-text-web class="stretch"
+                language="fr_FR"
+                applicationkey="22eda92c-10af-40d8-abea-fd4093c17d81"
+                hmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601"
+                host="webdemo.myscript.com">
+            </myscript-text-web>
+        </section>
+        <!--section>
+            <h3>Reconnaissance de texte</h3>
+            <iframe class="ace stretch">
+<myscript-text-web
+    language="fr_FR"
+    applicationkey="22eda92c-10af-40d8-abea-fd4093c17d81"
+    hmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601">
+</myscript-text-web>
+            </iframe>
+        </section-->
+        <section id="exemple-text">
+            <h3>Reconnaissance de texte</h3>
+        </section>
+
+        <section data-background-image="img/ms-usecases.png" data-background-size="50%">
+        </section>
+
+        <section data-background-image="img/hieroglyphs.svg" data-background-size="70%">
+        </section>
+        <section  data-background-image="img/code_c.png" data-background-size="100%">
+        </section>
+        <section  data-background-image="img/mstech.svg" data-background-size="90%">
+        </section>
+
+        <section data-background-image="img/write61.svg" data-background-size="40%">
+        </section>
+        <section>
+            <pre>
+                <code data-trim data-noescape>
+                GET .../do/recognition
+                </code>
+            </pre>
+                <pre><code data-trim data-noescape>
+            textInput =  {
+        "textParameter":{
+            "language":"en_US",
+            "textInputMode":"CURSIVE"},
+        "inputUnits":[{
+            "textInputType":"MULTI_LINE_TEXT",
+            "components":[{
+                "type":"stroke",
+                "x":[438,439,439,...],
+                "y":[319.5,313.5,312.5,...]
+            },{...}]}]}
+                </code></pre>
+        </section>
+        <section data-background-image="img/pens3.svg" data-background-size="30%">
+        </section>
+        <section>
+            <pre>
+                <code data-trim data-noescape>
+var paper = new MyScript.InkPaper(inkPaper, options, function (data, error) {
+    result.innerHTML = '';
+    if (error) { result.innerHTML = error;}
+    if (data) {
+    // Display the selected text candidate
+    result.innerHTML = data.getTextDocument().getTextSegment().getSelectedCandidate().getLabel();
+}});
+document.getElementById('trash').addEventListener('click',
+    function () {paper.clear();}, false);
+        // ... undo, redo ...
+var languages = document.getElementById('languages');
+        ...
+                </code>
+            </pre>
+        </section>
+        <section data-background-image="img/draw11.svg" data-background-size="30%">
+        </section>
+        <section data-background-color="#FFE5B4">
+            <section>
+                <h2>Web-Components ?</h2>
+                <img src="img/logowc.svg" width="400px">
+            </section>
+            <section>
+                <h3><img class="icon" src="img/icon-htmlimports.png" width="30" height="30">HTML Imports</h3>
+                 <pre>
+                    <code data-trim data-noescape>
+                        &lt;link rel="import" href="bow../mon-web-components/components.html"&gt;
+                    </code>
+                </pre>
+                <pre>
+                    <code data-trim data-noescape>
+&lt;script type=&quot;text/javascript&quot; src=&quot;../q/q.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;../pepjs/dist/pep.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;./dist/monjs.min.js&quot;&gt;&lt;/script&gt;
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3><img class="icon" src="img/icon-templates.png" width="30" height="30">Templates</h3>
+                <pre>
+                    <code data-trim data-noescape>
+&lt;template id=&quot;mytemplate&quot;&gt;
+    &lt;img src=&quot;&quot; alt=&quot;great image&quot;&gt;
+    &lt;div class=&quot;comment&quot;&gt;&lt;/div&gt;
+&lt;/template&gt;
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3><img class="icon" src="img/icon-shadowdom.png" width="30" height="30">Shadow DOM</h3>
+                <blockquote>Shadow DOM provides encapsulation for the JavaScript, CSS, and templating in a Web Component. Shadow DOM makes it so these things remain separate from the DOM of the main document...</blockquote>
+                <p>Source : Mozilla Developer Network</p>
+            </section>
+            <section >
+                <h3><img class="icon" src="img/icon-customelements.png" width="30" height="30">Custom Elements</h3>
+                <pre>
+                    <code data-trim data-noescape>
+&lt;mon-super-element&gt;
+    &lt;un-sous-element/&gt;
+&lt;/mon-super-element&gt;
+                    </code>
+                </pre>
+            </section>
+
+        </section>
+        <section data-background-iframe="myscript-math-web.txt">
+        </section>
+        <section data-background-iframe="http://myscript.github.io/myscript-math-web/components/myscript-math-web/">
+        </section>
+        <!--section>
+            <h3>Reconnaissance de formules mathématiques</h3>
+            <iframe class="ace stretch" data-onchange="console.log(editor.getValue())">
+<myscript-math-web class="stretch"
+    applicationkey="22eda92c-10af-40d8-abea-fd4093c17d81"
+    hmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601"
+    host="webdemo.myscript.com">
+</myscript-math-web>
+            </iframe>
+        </section-->
+        <section id="exemple-math">
+            <h3>Reconnaissance de formules mathématiques</h3>
+        </section>
+        <section id="mathTargetElement">
+        </section>
+        <section>
+            <h3 id="exercise-title" class="visible" >Simplifier l'équation suivante <span id="equation-to-solve"></span></h3>
+            <myscript-math-web id="solving-zone"
+                applicationkey="22eda92c-10af-40d8-abea-fd4093c17d81"
+                hmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601"
+                host="webdemo.myscript.com"
+                hideresult
+                class="stretch">
+            </myscript-math-web>
+            <h1 id="bravo" class="hidden" >BRAVO !</h1>
+        </section>
+        <section id="bind-math">
+            <pre><code>
+var solvingZoneElement
+    = document.getElementByTagName("myscript-math-web")[0];
+
+solvingZoneElement.classList.add("visible");
+solvingZoneElement.addEventListener("myscript-math-web-result",
+    function () {
+        var result = solvingZoneElement.result["LATEX"];
+        if (result === "\\dfrac {x^{2}} {2}") {
+            hideElementAndShowBravo();
+        }
+    }
+);
+            </code></pre>
+        </section>
+        <section>
+            <img src="img/GitHub-Mark-120px-plus.png" height="120px"><img src="img/GitHub_Logo.png"  height="120px">
+            <br>
+            <h5><a href='https://github.com/MyScript/myscript-math-web'>https://github.com/MyScript/myscript-math-web</a></h5>
+            <h5><a href='https://github.com/MyScript/myscript-text-web'>https://github.com/MyScript/myscript-text-web</a></h5>
+        </section>
+
+
+        <section>
+            <h1>MERCI</h1>
+            <br>
+            <h3>@padewitte</h3>
+            <h3>dev.myscript.com</h3>
+        </section>
+
+
+<section>
+    <h3>Crédits</h3>
+        <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+        <div>Css inspiration from Lea Verou <a href="http://lea.verou.me/css3patterns/#blueprint-grid">http://lea.verou.me/css3patterns/#blueprint-grid</a></div>
+</section>
+        <!-- This section is a slide. -->
+
+
+    </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script src="js/sketch.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        height: 614,
+        width: 1088,
+        touch: true,
+
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        minScale: 1,
+        maxScale: 1,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: 'plugin/notes/notes.js', async: true},
+            {src: 'bower_components/reveal.js-ace/ace.js'},
+            {
+                src: 'plugin/reveal-css-snippet/css-snippet.js', callback: function () {
+                document.getElementById('exemple-math').appendChild(RevealCSSSnippet({
+                    el: document.getElementById('mathTargetElement'),
+                    cssValue: '<myscript-math-web  \n' +
+                    '\tapplicationkey="22eda92c-10af-40d8-abea-fd4093c17d81" \n' +
+                    '\thmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601"  \n' +
+                    '\thost="webdemo.myscript.com"  \n' +
+                    '\tclass="stretch">  \n' +
+                    '</myscript-math-web>'
+                }));
+                document.getElementById('exemple-text').appendChild(RevealCSSSnippet({
+                    el: document.getElementById('textTargetElement'),
+                    cssValue: '<myscript-text-web  \n' +
+                    '\tapplicationkey="22eda92c-10af-40d8-abea-fd4093c17d81" \n' +
+                    '\thmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601"  \n' +
+                    '\tlanguage="fr_FR"  \n' +
+                    '\thost="webdemo.myscript.com"' +
+                    '\tclass="stretch">  \n' +
+                    '</myscript-text-web>'
+                }));
+                /*document.getElementById('bind-math').appendChild(RevealCSSSnippet({
+                    cssValue: 'var solvingZoneElement = document.getElementById("solving-zone"); \n' +
+                    'solvingZoneElement.classList.add("visible");\n' +
+                    'solvingZoneElement.addEventListener("myscript-math-web-result", function () {\n' +
+                    '\tvar result = solvingZoneElement.result["LATEX"];\n' +
+                    '\tif (result && result !== "" && result === "\\dfrac {x^{2}} {2}") {\n' +
+                    '\t\tshowBravo();\n' +
+                    '\t}\n'+
+                    '});\n'
+                }));*/
+            }
+            }
+        ]
+    });
+
+    Reveal.addEventListener('slidechanged', function (event) {
+        // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+        //console.log("SLide nb : "+event.currentSlide);
+
+    });
+
+    function hideElementAndShowBravo(){
+        var solvingZoneElement = document.getElementById('solving-zone');
+        solvingZoneElement.classList.toggle('visible');
+        solvingZoneElement.classList.add('hidden');
+        var bravoH1 = document.getElementById('bravo');
+        bravoH1.classList.toggle('visible');
+        bravoH1.classList.toggle('hidden');
+        var exerciseTitle = document.getElementById('exercise-title');
+        exerciseTitle.classList.toggle('visible');
+        exerciseTitle.classList.toggle('hidden');
+    }
+
+    window.addEventListener('WebComponentsReady', function(e) {
+        //Just
+        katex.render('\\dfrac {2x^{2}} {4}', document.getElementById('equation-to-solve'));
+
+        //Binding the myscript-math-web-result event to then compare the recognized latex with the expected one.
+        var solvingZoneElement = document.getElementById("solving-zone");
+        solvingZoneElement.classList.add("visible");
+
+        solvingZoneElement.addEventListener("myscript-math-web-result", function () {
+
+            var result = solvingZoneElement.result["LATEX"];
+            console.log(result);
+                if (result === "\\dfrac {x^{2}} {2}") {
+                    hideElementAndShowBravo();
+                }
+        });
+    });
+
+</script>
+
+</body>
+</html>
