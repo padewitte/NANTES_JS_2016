@@ -1,10 +1,8 @@
-# DEVFEST 2016 - Composant Polymer de reconnaissance d'écriture
-
-Présentation donnée le 5 février 2016 au DEVFEST Paris.
+# NantesJS le 19 mai 2016 - Web component de reconnaissance d'écriture
 
 
 ## Limite
-Les touchevents (evénements recus lorsqu'une surface tactile est utilisée) ne sont pas propagés au webcomponents. Je n'ai pas chercher à le faire fonctionner. 
+Les touchevents (evénements recus lorsqu'une surface tactile est utilisée) ne sont pas propagés au webcomponents. Je n'ai pas chercher à le faire fonctionner.
 
 ## Installation
 
@@ -40,7 +38,3 @@ Some reveal.js features, like external Markdown and speaker notes, require that 
 8. Open <http://localhost:8000> to view your presentation
 
    You can change the port by using `grunt serve --port 8001`.
-
-
-
-

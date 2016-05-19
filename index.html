@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>P.A. DEWITTE - DEVFEST PARIS 2016</title>
+    <title>P.A. DEWITTE - Nantes JS mai 2016</title>
 
     <meta name="description" content="Reconnaissance d'ériture avec un composant Polymer">
     <meta name="author" content="P.A. DEWITTE">
@@ -42,9 +42,9 @@
     <!-- Integration  myscript-math-web -->
     <script src="bower_components/pepjs/dist/pep.min.js"></script>
     <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="bower_components/mathjs/dist/math.js"></script>
     <link rel="import" href="bower_components/myscript-math-web/myscript-math-web.html">
     <link rel="import" href="bower_components/myscript-text-web/myscript-text-web.html">
+    <link href='https://fonts.googleapis.com/css?family=Waiting+for+the+Sunrise' rel='stylesheet' type='text/css'>
 
     <style>
         canvas[id^=ms-rendering-canvas] {
@@ -71,12 +71,12 @@
     -->
     <div class="slides">
         <section>
-            <img src="img/titreimg.png">
+            <h2 class="prestitle">Web-Component de reconnaissance d'écriture</h2>
             <br/>
             <br/>
             <div class="logo-container sub">
-                <img class=logo" height="200px" width="500px" src="img/myscript.svg">
-                <img class=logo" height="200px" width="500px" src="img/logodevfest.svg">
+                <img class="logo" height="200px" width="500px" src="img/myscript.svg">
+                <img class="logo" height="200px" width="200px" src="img/logotype.png">
             </div>
         </section>
         <section>
@@ -94,24 +94,9 @@
                 <img src="img/Cloud01.svg" class="logo-up ">
             </div>
         </section>
-        <section>
-            <myscript-text-web class="stretch"
-                language="fr_FR"
-                applicationkey="22eda92c-10af-40d8-abea-fd4093c17d81"
-                hmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601"
-                host="webdemo.myscript.com">
-            </myscript-text-web>
+        <section >
+          <div id="demo-text" style="componentdemo"></div>
         </section>
-        <!--section>
-            <h3>Reconnaissance de texte</h3>
-            <iframe class="ace stretch">
-<myscript-text-web
-    language="fr_FR"
-    applicationkey="22eda92c-10af-40d8-abea-fd4093c17d81"
-    hmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601">
-</myscript-text-web>
-            </iframe>
-        </section-->
         <section id="exemple-text">
             <h3>Reconnaissance de texte</h3>
         </section>
@@ -222,20 +207,12 @@ var languages = document.getElementById('languages');
         </section>
         <section data-background-iframe="http://myscript.github.io/myscript-math-web/components/myscript-math-web/">
         </section>
-        <!--section>
-            <h3>Reconnaissance de formules mathématiques</h3>
-            <iframe class="ace stretch" data-onchange="console.log(editor.getValue())">
-<myscript-math-web class="stretch"
-    applicationkey="22eda92c-10af-40d8-abea-fd4093c17d81"
-    hmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601"
-    host="webdemo.myscript.com">
-</myscript-math-web>
-            </iframe>
-        </section-->
+
         <section id="exemple-math">
             <h3>Reconnaissance de formules mathématiques</h3>
         </section>
-        <section id="mathTargetElement">
+        <section>
+          <div id="demo-math" style="componentdemo"></div>
         </section>
         <section>
             <h3 id="exercise-title" class="visible" >Simplifier l'équation suivante <span id="equation-to-solve"></span></h3>
@@ -340,8 +317,8 @@ solvingZoneElement.addEventListener("myscript-math-web-result",
             {
                 src: 'plugin/reveal-css-snippet/css-snippet.js', callback: function () {
                 document.getElementById('exemple-math').appendChild(RevealCSSSnippet({
-                    el: document.getElementById('mathTargetElement'),
-                    cssValue: '<myscript-math-web  \n' +
+                    el: document.getElementById('demo-math'),
+                    cssValue: '<myscript-math-web \n' +
                     '\tapplicationkey="22eda92c-10af-40d8-abea-fd4093c17d81" \n' +
                     '\thmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601"  \n' +
                     '\thost="webdemo.myscript.com"  \n' +
@@ -349,8 +326,8 @@ solvingZoneElement.addEventListener("myscript-math-web-result",
                     '</myscript-math-web>'
                 }));
                 document.getElementById('exemple-text').appendChild(RevealCSSSnippet({
-                    el: document.getElementById('textTargetElement'),
-                    cssValue: '<myscript-text-web  \n' +
+                    el: document.getElementById('demo-text'),
+                    cssValue: '<myscript-text-web  style="height: 574px; width: 1088px;"\n' +
                     '\tapplicationkey="22eda92c-10af-40d8-abea-fd4093c17d81" \n' +
                     '\thmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601"  \n' +
                     '\tlanguage="fr_FR"  \n' +
@@ -375,7 +352,7 @@ solvingZoneElement.addEventListener("myscript-math-web-result",
 
     Reveal.addEventListener('slidechanged', function (event) {
         // event.previousSlide, event.currentSlide, event.indexh, event.indexv
-        //console.log("SLide nb : "+event.currentSlide);
+        console.log("SLide nb : "+event.currentSlide);
 
     });
 

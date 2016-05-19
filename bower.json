@@ -13,10 +13,12 @@
   ],
   "dependencies": {
     "headjs": "~1.0.3",
-    "myscript-math-web": "~1.1.0",
+    "myscript-math-web": "https://zen.visionobjects.com/git/WS/Polymer/myscript-math-web.git#master",
     "juicy-ace-editor": "~1.1.1",
     "reveal.js-ace": "https://github.com/Gottox/reveal.js-ace.git",
-    "myscript-text-web": "~1.1.0"
+    "myscript-text-web": "https://zen.visionobjects.com/git/WS/Polymer/myscript-text-web.git#master",
+    "myscript-common-element": "https://zen.visionobjects.com/git/WS/Polymer/myscript-common-element.git#master",
+    "myscript": "https://zen.visionobjects.com/git/WS/MyScriptJS.git#master"
   },
   "repository": {
     "type": "git",
