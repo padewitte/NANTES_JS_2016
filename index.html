@@ -212,7 +212,7 @@ var languages = document.getElementById('languages');
             <h3>Reconnaissance de formules mathématiques</h3>
         </section>
         <section>
-          <div id="demo-math" style="componentdemo"></div>
+          <div id="demo-math" class="componentdemo" style="height:700px;"></div>
         </section>
         <section>
             <h3 id="exercise-title" class="visible" >Simplifier l'équation suivante <span id="equation-to-solve"></span></h3>
@@ -322,17 +322,17 @@ solvingZoneElement.addEventListener("myscript-math-web-result",
                     '\tapplicationkey="22eda92c-10af-40d8-abea-fd4093c17d81" \n' +
                     '\thmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601"  \n' +
                     '\thost="webdemo.myscript.com"  \n' +
-                    '\tclass="stretch">  \n' +
+                    '\tclass="stretch componentstyle">  \n' +
                     '</myscript-math-web>'
                 }));
                 document.getElementById('exemple-text').appendChild(RevealCSSSnippet({
                     el: document.getElementById('demo-text'),
-                    cssValue: '<myscript-text-web  style="height: 574px; width: 1088px;"\n' +
+                    cssValue: '<myscript-text-web  "\n' +
                     '\tapplicationkey="22eda92c-10af-40d8-abea-fd4093c17d81" \n' +
                     '\thmackey="a1fa759f-b3ce-4091-9fd4-d34bb870c601"  \n' +
                     '\tlanguage="fr_FR"  \n' +
                     '\thost="webdemo.myscript.com"' +
-                    '\tclass="stretch">  \n' +
+                    '\tclass="stretch componentstyle">  \n' +
                     '</myscript-text-web>'
                 }));
                 /*document.getElementById('bind-math').appendChild(RevealCSSSnippet({
